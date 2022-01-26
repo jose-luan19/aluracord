@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }) {
     console.log('Roda em todas as páginas');
     return (
         <>
-            {/* <GlobalStyle/> */}
+            <GlobalStyle/>
             <Component {...pageProps} />
         </>
     );
