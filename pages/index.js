@@ -1,6 +1,8 @@
 import appConfig from '../config.json';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
-//Criação de uma tag de estilos global
+import React from 'react';
+import { useRouter } from 'next/router';
+
 function GlobalStyle() {
     return (
         <style global jsx>{`
@@ -9,6 +11,7 @@ function GlobalStyle() {
         padding: 0;
         box-sizing: border-box;
         list-style: none;
+
       }
       body {
         font-family: 'Open Sans', sans-serif;
@@ -30,7 +33,7 @@ function GlobalStyle() {
     );
 }
 
-
+//Componente react 
 //Criação de uma tag que recebe como parametro o conteudo de onde ela é chamada
 //Jutando todos as linguagens em um componente HTML, CSS E JS
 function Titulo(props) {
@@ -47,8 +50,10 @@ function Titulo(props) {
             <style jsx>{`
                 ${Tag} {
                     color: ${appConfig.theme.colors.neutrals['200']};
-                    font-size: 24px;
-                    font-weight: 600; 
+                    font-size: 26px;
+                    font-weight: 600;
+                    background-color: ${appConfig.theme.colors.neutrals['050']}; 
+                    border-radius: 5px;
                 }
             `}</style>
         </>
@@ -57,29 +62,22 @@ function Titulo(props) {
 }
 
 
-//Componente react 
-// function HomePage() {
-//     return (/*  */
-//         <div>
-//             <GlobalStyle />{/*chamada da tag global de estilos*/}
-//             <Titulo tag="h2">Boas vindas de volta</Titulo>
-//             <h2>Dicord - Alura Matrix</h2>
-//         </div>)
-// }
-
-// export default HomePage
-
 export default function PaginaInicial() {
-    const username = 'jose-luan19';
+    //const username = 'jose-luan19';
+    //Iniciando uma variavel para que o react reconheça que ela pode mudar e se mudar, que possa reatribuir esses valores(Mudança de state)
+    //React.useState(''); -> A função devolve um array e uma function, que essa function será o set
+    const [username, setUsername] = React.useState('jose-luan19');
+
+    const roteamento = useRouter();
 
     return (
         <>
             <GlobalStyle />
             <Box
                 styleSheet={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',/*alignContent: 'center',*/
                     backgroundColor: appConfig.theme.colors.primary[500],
-                    backgroundImage: 'url(https://t.ctcdn.com.br/kdJP2DeoupkKzlgYmRszZ_SzbXw=/0x40:1728x1013/1400x788/smart/i325991.jpeg)',
+                    backgroundImage: 'url(https://images7.alphacoders.com/611/thumbbig-611138.webp)',
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 }}
             >
@@ -92,40 +90,68 @@ export default function PaginaInicial() {
                             xs: 'column',
                             sm: 'row',
                         },
-                        width: '100%', maxWidth: '700px',
+                        width: '100%', maxWidth: '600px',
                         borderRadius: '5px', padding: '32px', margin: '16px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-                        backgroundColor: appConfig.theme.colors.neutrals[700],
+                        backgroundColor: appConfig.theme.colors.neutrals[100],
                     }}
                 >
                     {/* Formulário */}
                     <Box
                         as="form"
+                        onSubmit={function (infosDoEvento) {
+                            /* Faz com que o form para de recarregar a pagina automaticamente */
+                            infosDoEvento.preventDefault();
+                            console.log('Submeteu')
+                            //window.location.href = '/chat'; Maneira padrão, que dá o refresh
+
+                            //Magica do next/React de mudar a pagina mais elegantemente e sem refresh
+                            roteamento.push('/chat');
+                        }}
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                             width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
                         }}
                     >
-                        <Titulo tag="h2">Boas vindas de volta!</Titulo>
-                        <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
+                        <Titulo>Boas vindas de volta!</Titulo>
+                        <Text variant="body2" styleSheet={{ 
+                            marginBottom: '20px', 
+                            color: appConfig.theme.colors.neutrals[200],
+                            backgroundColor: appConfig.theme.colors.neutrals['050'], 
+                            borderRadius: '0px',
+                            width: '130px'
+                            }}>
                             {appConfig.name}
                         </Text>
 
+                        {/* Input */}
                         <TextField
+                            value={username}
+                            onChange={function (event) {
+                                console.log('usuario digitou', event.target.value);
+                                // Onde ta o valor?
+                                const valor = event.target.value;
+                                //Trocar o valor da variavel
+                                //através do React e avise quem precisa saber
+                                //O React é performatico, esse simples set modifica em todos os componentes em que a variavel é usada
+                                setUsername(valor);
+                            }}
                             fullWidth
                             textFieldColors={{
                                 neutral: {
-                                    textColor: appConfig.theme.colors.neutrals[200],
+                                    textColor: appConfig.theme.colors.neutrals["000"],
                                     mainColor: appConfig.theme.colors.neutrals[900],
-                                    mainColorHighlight: appConfig.theme.colors.primary[500],
+                                    mainColorHighlight: appConfig.theme.colors.primary[300],
                                     backgroundColor: appConfig.theme.colors.neutrals[800],
                                 },
                             }}
                         />
+
                         <Button
                             type='submit'
                             label='Entrar'
-                            fullWidth
+                            size='lg'
+                            // fullWidth
                             buttonColors={{
                                 contrastColor: appConfig.theme.colors.neutrals["000"],
                                 mainColor: appConfig.theme.colors.primary[700],
@@ -145,10 +171,10 @@ export default function PaginaInicial() {
                             alignItems: 'center',
                             maxWidth: '200px',
                             padding: '16px',
-                            backgroundColor: appConfig.theme.colors.neutrals[800],
-                            border: '1px solid',
-                            borderColor: appConfig.theme.colors.neutrals[999],
-                            borderRadius: '10px',
+                            //backgroundColor: appConfig.theme.colors.neutrals[100],
+                            //borderColor: appConfig.theme.colors.neutrals[100],
+                            //border: '1px solid',
+                            //borderRadius: '10px',
                             flex: 1,
                             minHeight: '240px',
                         }}
@@ -163,10 +189,10 @@ export default function PaginaInicial() {
                         <Text
                             variant="body4"
                             styleSheet={{
-                                color: appConfig.theme.colors.neutrals[200],
+                                color: appConfig.theme.colors.neutrals[300],
                                 backgroundColor: appConfig.theme.colors.neutrals[900],
                                 padding: '3px 10px',
-                                borderRadius: '1000px'
+                                //borderRadius: '1000px'
                             }}
                         >
                             {username}
