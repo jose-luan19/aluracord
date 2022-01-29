@@ -9,6 +9,6 @@ Projeto desenvolvido na Imersão React com a @alura @omariosouto @peas
 
 
 
-- Imagem XL
-![Goku](https://https://github.com/jose-luan19/aluracord-dbz/blob/master/public/img/HomePage.png)
+- HomePage
+![HomePage](https://user-images.githubusercontent.com/54694573/151673582-514198e4-cfb3-461a-ae03-5f8b37a6c662.png)
 
