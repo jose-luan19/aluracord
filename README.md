@@ -3,7 +3,7 @@
 Projeto desenvolvido na Imersão React com a @alura @omariosouto @peas 
 
 
-<a href="https://aluracord-dbz-eight.vercel.app">Clique para visualizar</a>
+<a href="https://aluracord-dbz-1shpzlzy7-jose-luan19.vercel.app">Clique para visualizar</a>
 
 
 
