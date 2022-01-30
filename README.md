@@ -10,5 +10,5 @@ Projeto desenvolvido na Imersão React com a @alura @omariosouto @peas
 
 
 - HomePage
-![HomePage](https://user-images.githubusercontent.com/54694573/151673582-514198e4-cfb3-461a-ae03-5f8b37a6c662.png)
+![HomePage](https://user-images.githubusercontent.com/54694573/151716397-4da91def-1da3-4343-99db-8f2058bcb259.png)
 
