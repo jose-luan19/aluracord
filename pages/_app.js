@@ -32,7 +32,7 @@ function GlobalStyle() {
 
 //Arquivo default e raiz da minha aplicação, onde todas as pages terão esse padrão inicial
 export default function App({ Component, pageProps }) {
-    console.log('Roda em todas as páginas');
+    // console.log('Roda em todas as páginas');
     return (
         <>
             <GlobalStyle/>

@@ -2,8 +2,9 @@ import appConfig from '../config.json';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import React from 'react';
 import { useRouter } from 'next/router';
-
 import Head from "next/head";
+
+
 
 //Componente para por o nome na aba do navegador
 function IndexPage() {
@@ -19,7 +20,7 @@ function IndexPage() {
 //Criação de uma tag que recebe como parametro o conteudo de onde ela é chamada
 //Jutando todos as linguagens em um componente HTML, CSS E JS
 function Titulo(props) {
-    console.log(props)
+    // console.log(props)
     const Tag = props.tag || 'h1';
     return (
         //Deixando o codigo mais variavel a partir do parametro props, 
@@ -50,10 +51,13 @@ export default function PaginaInicial() {
     const [username, setUsername] = React.useState('jose-luan19');
     //Varivael para verificar se o ususario existe
     const [userExiste, setUserExiste] = React.useState(true);
-    //Varivael para verificar se o ususario existe
+
     const [userFollowers, setUserFollowers] = React.useState();
-    //Varivael para verificar se o ususario existe
+
     const [userFollowing, setUserFollowing] = React.useState();
+
+    const [userURL, setUserURL] = React.useState('https://github.com/jose-luan19');
+
     //Variavel para mudar as Routers
     const roteamento = useRouter();
 
@@ -66,13 +70,15 @@ export default function PaginaInicial() {
                     setUsername(obj.login)
                     setUserFollowers(obj.followers)
                     setUserFollowing(obj.following)
+                    setUserURL(obj.html_url)
                 }
-                else if ((obj.message == "Not Found" || event.target.value == "") && username.length > 2) {
+                else if ((obj.message == 'Not Found' || event.target.value == '') && username.length > 2) {
                     setUserExiste(false)
-                    setName("")
-                    setUsername("Usuário não encontrado")
-                    setUserFollowers("")
-                    setUserFollowing("")
+                    setName('')
+                    setUsername('Usuário não encontrado')
+                    setUserFollowers('')
+                    setUserFollowing('')
+                    setUserURL('')
                 }
                 else {
                     setUserExiste(true)
@@ -125,13 +131,13 @@ export default function PaginaInicial() {
                         onSubmit={function (infosDoEvento) {
                             /* Faz com que o form para de recarregar a pagina automaticamente */
                             infosDoEvento.preventDefault();
-                            console.log('Submeteu')
+                            // console.log('Submeteu')
                             //window.location.href = '/chat'; Maneira padrão, que dá o refresh
 
                             //Magica do next/React de mudar a pagina mais elegantemente e sem refresh
                             if (userExiste) {
                                 appConfig.username = username
-                                roteamento.push('/chat')
+                                roteamento.push(`/chat?username=${username}`)
                             }
                         }}
                         styleSheet={{
@@ -157,7 +163,7 @@ export default function PaginaInicial() {
                         </Text>
 
                         {/* Texto de alerta caso o login não exista no github */}
-                        {username.length > 2 ? (
+                        {username.length > 2 && (
                             <Text
                                 tag="label"
                                 className="userNotFound"
@@ -171,7 +177,7 @@ export default function PaginaInicial() {
                             >
                                 {userExiste ? "" : "Usuário não encontrado"}
                             </Text>
-                        ) : ("")}
+                        ) }
 
                         {/* Input */}
                         <TextField
@@ -214,13 +220,13 @@ export default function PaginaInicial() {
 
 
                     {/* Photo Area */}
-                    {username.length > 2 ? (
+                    {username.length > 2 && (
                         /* condicional para que só mude o layout da box só se houver mais de 2 char's no input */
                         <Box
                             as='form'
                             onSubmit={function (e) {
                                 e.preventDefault();
-                                roteamento.push(`https://github.com/${username}`);
+                                roteamento.push(userURL);
                             }}
                             styleSheet={{
                                 display: 'flex',
@@ -236,21 +242,21 @@ export default function PaginaInicial() {
                                 minHeight: '240px',
                             }}
                         >
-                                <Image
+                            <Image
 
-                                    styleSheet={{
-                                        borderRadius: '50%',
-                                        marginBottom: '16px',
-                                    }}
-                                    /* condicional para que só mostre a imagem se houver mais de 2 char's no input */
-                                    src={userExiste ? (username.length > 2 ? `https://github.com/${username}.png` : "") : "" }
-                                    onError={function (event) {
-                                        event.target.src = "https://openclipart.org/download/247319/abstract-user-flat-3.svg"
-                                    }}
-                                />
+                                styleSheet={{
+                                    borderRadius: '50%',
+                                    marginBottom: '16px',
+                                }}
+                                /* condicional para que só mostre a imagem se houver mais de 2 char's no input */
+                                src={userExiste ? (username.length > 2 ? `https://github.com/${username}.png` : "") : ""}
+                                onError={function (event) {
+                                    event.target.src = "https://openclipart.org/download/247319/abstract-user-flat-3.svg"
+                                }}
+                            />
 
                             {/* Username */}
-                            {userExiste ? (
+                            {userExiste && (
                                 <Text
                                     variant="body"
                                     styleSheet={{
@@ -262,9 +268,9 @@ export default function PaginaInicial() {
                                 >
                                     {username}
                                 </Text>
-                            ) : ("")}
+                            ) }
 
-                            {userExiste ? (
+                            {userExiste && (
 
                                 <Text
                                     variant="body6"
@@ -274,15 +280,16 @@ export default function PaginaInicial() {
                                         borderRadius: '1000px'
                                     }}
                                 >
-                                    {userFollowers !=null ? `Followers: ${userFollowers}`: ""}
+                                    {(userFollowers != null) && (`Followers: ${userFollowers}`) }
                                     <br></br>
-                                    {userFollowing !=null ? `Following: ${userFollowing}`: ""}
+                                    {(userFollowing != null) && (`Following: ${userFollowing}`) }
+                                    
                                 </Text>
 
 
-                            ) : ""}
+                            ) }
 
-                            {userExiste ? (
+                            {userExiste && (
                                 <Button
                                     type='submit'
                                     label='Visit profile'
@@ -298,9 +305,9 @@ export default function PaginaInicial() {
                                         mainColorStrong: appConfig.theme.colors.primary[600],
                                     }}
                                 />
-                                ) : ("")}
+                            )}
                         </Box>
-                    ) : ("")}
+                    ) }
 
                     {/* Photo Area */}
 
