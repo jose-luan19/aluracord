@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "@skynexui/components": "^1.23.9",
     "@supabase/supabase-js": "^1.29.4",
     "next": "^12.0.8",

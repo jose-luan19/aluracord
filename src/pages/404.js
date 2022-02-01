@@ -3,7 +3,7 @@
 import { Box, Button, Image, Text } from "@skynexui/components";
 import { useRouter } from "next/router";
 
-import appConfig from "../config.json";
+import appConfig from "../../config.json";
 
 import Head from "next/head";
 
@@ -21,7 +21,7 @@ export default function Custom404() {
 
     return (
         <>
-            <IndexPage />
+            <IndexPage text='404 ERROR | AluraCord - DBZ '/>
             <Box
                 styleSheet={{
                     backgroundColor: "black",
@@ -47,7 +47,7 @@ export default function Custom404() {
                         height: "50%",
                         marginBottom: "40px",
                     }}
-                    src="https://31.media.tumblr.com/48786d9e282efd65538f91f4fa8359ea/tumblr_ml7oxguqff1r72ht7o1_500.gif"
+                    src={appConfig.IMAGE_404}
                 ></Image>
 
                 <Text
