@@ -7,7 +7,7 @@ import Head from "next/head";
 
 
 //Componente para por o nome na aba do navegador
-function IndexPage() {
+function IndexPage() { 
     return (
         <Head>
             <title>AluraCord - DBZ</title>
