@@ -1,6 +1,11 @@
-## Aluracord-dbz
+# Aluracord-dbz
 
 Projeto desenvolvido na Imersão React com a @alura @omariosouto @peas 
+
+## Para iniciar o projeto com docker, basta executar no terminal:
+```console
+docker-compose up
+```
 
 
 <a href="https://aluracord-dbz-1shpzlzy7-jose-luan19.vercel.app">Clique para visualizar</a>
