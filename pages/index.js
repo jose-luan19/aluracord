@@ -18,7 +18,7 @@ function IndexPage() {
 
 //Componente react 
 //Criação de uma tag que recebe como parametro o conteudo de onde ela é chamada
-//Jutando todos as linguagens em um componente HTML, CSS E JS
+//Jutando todos as linguagens em um componente HTML, CSS E JSa
 function Titulo(props) {
     // console.log(props)
     const Tag = props.tag || 'h1';
