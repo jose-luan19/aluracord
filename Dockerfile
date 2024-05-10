@@ -1,5 +1,5 @@
 # Use uma imagem base do Node.js
-FROM node:lts
+FROM node:20-alpine
 
 # Crie e defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Instale as dependências do projeto usando o npm
-RUN npm install
+RUN npm config set strict-ssl false && npm install
 
 RUN npm install -g next
 
