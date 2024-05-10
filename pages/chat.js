@@ -7,8 +7,8 @@ import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
-const SUPABASE_ANON_KEY = process.env.SUPABASE_KEY;
-const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
